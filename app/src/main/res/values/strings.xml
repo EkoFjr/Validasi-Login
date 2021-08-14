@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Validasi Login</string>
+    <string name="simpan">Simpan</string>
+    <string name="alamat_tinggal">Alamat Tinggal</string>
+    <string name="asal_sekolah">Asal Sekolah</string>
+    <string name="nama_lengkap">Nama Lengkap</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="password">Password</string>
+</resources>
