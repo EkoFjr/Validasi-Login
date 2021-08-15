@@ -16,6 +16,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Login extends AppCompatActivity {
+
     public static final  String FILENAME ="login";
 
     EditText edtUsername, edtPassword;
@@ -49,7 +50,7 @@ public class Login extends AppCompatActivity {
 
     void  simpanFileLogin(){
         String isiFile = edtUsername.getText().toString()
-                +";"+edtPassword.getText().toString();
+                +";"+ edtPassword.getText().toString();
         File file = new File(getFilesDir(),FILENAME);
 
         FileOutputStream outputStream = null;
@@ -66,7 +67,7 @@ public class Login extends AppCompatActivity {
         onBackPressed();
     }
 
-    private void login() {
+    void login() {
         File sdcard = getFilesDir();
         File file = new File(sdcard,edtUsername.getText().toString());
         if (file.exists()){
@@ -76,7 +77,7 @@ public class Login extends AppCompatActivity {
                 String line = br.readLine();
                 while (line!=null){
                     text.append(line);
-                    line =br.readLine();
+                    line = br.readLine();
                 }
                 br.close();
             }catch (IOException e){

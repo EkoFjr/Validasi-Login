@@ -2,6 +2,7 @@ package com.example.validasilogin;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,36 +13,34 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+
 public class MainActivity extends AppCompatActivity {
     EditText edtUsername,edtPassword,edtEmail,edtNamaLengkap,edtAsalSekolah,edtAlamat;
     Button bnSimpan;
-    TextView textPassword;
 
     public static final String FILENAME="login";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_main);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getSupportActionBar().setTitle("Halaman Depan");
 
+
         edtUsername = findViewById(R.id.editUsername);
-        textPassword = findViewById(R.id.text);
         edtPassword = findViewById(R.id.editPassword);
         edtEmail =findViewById(R.id.editEmail);
         edtNamaLengkap = findViewById(R.id.editNamaLengkap);
@@ -51,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         bnSimpan.setVisibility(View.GONE);
         edtUsername.setEnabled(false);
         edtPassword.setVisibility(View.GONE);
-        textPassword.setVisibility(View.GONE);
         edtEmail.setEnabled(false);
         edtNamaLengkap.setEnabled(false);
         edtAsalSekolah.setEnabled(false);
@@ -61,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         
     }
 
-    private void bacaFileLogin() {
+    void bacaFileLogin() {
         File sdcard = getFilesDir();
         File file = new File(sdcard,FILENAME);
         if (file.exists()){
@@ -79,12 +77,12 @@ public class MainActivity extends AppCompatActivity {
             }
             String data = text.toString();
             String[] dataUser = data.split(";");
-            bacaDataUser(dataUser);
+            bacaDataUser(dataUser[0]);
         }
 
     }
 
-    private void bacaDataUser(String[] fileName) {
+    void bacaDataUser(String fileName) {
         File sdcard = getFilesDir();
         File file = new File(sdcard, String.valueOf(fileName));
         if (file.exists()){
@@ -136,14 +134,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void tampilkanDialogKonfirmasiLogout() {
+    void tampilkanDialogKonfirmasiLogout() {
         new AlertDialog.Builder(this)
                 .setTitle("Logout")
                 .setMessage("Apakah Anda yakin ingin Logout ?")
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int whicButton) {
+                    public void onClick(DialogInterface dialogInterface, int whic) {
                         hapusFile();
                         Intent intent = new Intent(MainActivity.this,Login.class);
                         startActivity(intent);
@@ -152,6 +150,4 @@ public class MainActivity extends AppCompatActivity {
                 }).setNegativeButton(android.R.string.no,null).show();
     }
 
-    private void setSupportActionBar(Toolbar toolbar) {
-    }
 }

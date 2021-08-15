@@ -7,10 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
+
+import androidx.appcompat.widget.Toolbar;
 import java.io.File;
 import java.io.FileOutputStream;
+
 
 public class RegisterActivity extends AppCompatActivity {
     EditText edtUsername,edtPassword,edtEmail,edtNamaLengkap,edtAsalSekolah,edtAlamat;
@@ -24,21 +26,20 @@ public class RegisterActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getSupportActionBar().setTitle("Register");
-
         edtUsername = findViewById(R.id.editUsername);
         edtPassword = findViewById(R.id.editPassword);
         edtEmail =findViewById(R.id.editEmail);
         edtNamaLengkap = findViewById(R.id.editNamaLengkap);
         edtAsalSekolah = findViewById(R.id.editAsalSekolah);
         bnSimpan = findViewById(R.id.btnSimpan);
-        
+
         bnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 if (isValidation()){
                     simpanFileData();
                 }else {
@@ -50,25 +51,21 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private boolean isValidation() {
-        if (edtUsername.getText().toString().equals("")||
-        edtPassword.getText().toString().equals("")||
-        edtEmail.getText().toString().equals("")||
-        edtNamaLengkap.getText().toString().equals("")||
-        edtAsalSekolah.getText().toString().equals("")||
-        edtAlamat.getText().toString().equals("")){
-            return false;
-        }else {
-            return true;
-        }
+    boolean isValidation() {
+        return !edtUsername.getText().toString().equals("") &&
+                !edtPassword.getText().toString().equals("") &&
+                !edtEmail.getText().toString().equals("") &&
+                !edtNamaLengkap.getText().toString().equals("") &&
+                !edtAsalSekolah.getText().toString().equals("") &&
+                !edtAlamat.getText().toString().equals("");
     }
 
-    private void simpanFileData() {
-        String isiFile = edtUsername.getText().toString()+","+
-                edtPassword.getText().toString()+","+
-                edtEmail.getText().toString()+","+
-                edtNamaLengkap.getText().toString()+","+
-                edtAsalSekolah.getText().toString()+","+
+    void simpanFileData() {
+        String isiFile = edtUsername.getText().toString()+";"+
+                edtPassword.getText().toString()+";"+
+                edtEmail.getText().toString()+";"+
+                edtNamaLengkap.getText().toString()+";"+
+                edtAsalSekolah.getText().toString()+";"+
                 edtAlamat.getText().toString();
         File file = new File(getFilesDir(),
         edtUsername.getText().toString());
@@ -87,7 +84,4 @@ public class RegisterActivity extends AppCompatActivity {
         onBackPressed();
     }
 
-
-    private void setSupportActionBar(Toolbar toolbar) {
-    }
 }

@@ -9,6 +9,7 @@ import android.os.Handler;
 import java.io.File;
 
 public class splashscreen extends AppCompatActivity {
+
     public static final String FILENAME = "login";
 
     @Override
@@ -27,7 +28,6 @@ public class splashscreen extends AppCompatActivity {
                     startActivity(intent);
                 }
                 finish();
-
             }
         },2000);
 

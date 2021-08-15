@@ -4,6 +4,7 @@
 
     <item
         android:id="@+id/home1"
-        android:icon="@drawable/home"
-        android:title="home" />
+        android:icon="?attr/actionModeCloseDrawable"
+        android:title="back"
+        app:showAsAction="always" />
 </menu>
