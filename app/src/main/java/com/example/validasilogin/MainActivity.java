@@ -19,6 +19,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getSupportActionBar().setTitle("Halaman Depan");
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
     void bacaFileLogin() {
         File sdcard = getFilesDir();
-        File file = new File(sdcard,FILENAME);
+        File file = new File(sdcard, FILENAME);
         if (file.exists()){
             StringBuilder text =new StringBuilder();
             try {
