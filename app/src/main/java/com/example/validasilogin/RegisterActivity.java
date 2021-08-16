@@ -15,7 +15,7 @@ import java.io.FileOutputStream;
 
 
 public class RegisterActivity extends AppCompatActivity {
-    EditText edtUsername,edtPassword,edtEmail,edtNamaLengkap,edtAsalSekolah,edtAlamat;
+    EditText edtUsername, edtPassword, edtEmail, edtNamaLengkap, edtAsalSekolah, edtAlamat;
     Button bnSimpan;
 
     @Override
@@ -30,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getSupportActionBar().setTitle("Register");
-        edtUsername = findViewById(R.id.editUsername);
+        edtUsername = findViewById(R.id.Username);
         edtPassword = findViewById(R.id.editPassword);
         edtEmail =findViewById(R.id.editEmail);
         edtNamaLengkap = findViewById(R.id.editNamaLengkap);
@@ -40,35 +40,36 @@ public class RegisterActivity extends AppCompatActivity {
         bnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isValidation()){
+                if (isValidation()) {
                     simpanFileData();
                 }else {
                     Toast.makeText(RegisterActivity.this, "Mohon Lengkapi Seluruh Data", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        
-
     }
 
     boolean isValidation() {
-        return !edtUsername.getText().toString().equals("") &&
-                !edtPassword.getText().toString().equals("") &&
-                !edtEmail.getText().toString().equals("") &&
-                !edtNamaLengkap.getText().toString().equals("") &&
-                !edtAsalSekolah.getText().toString().equals("") &&
-                !edtAlamat.getText().toString().equals("");
+        if(edtUsername.getText().toString().equals("") ||
+                edtPassword.getText().toString().equals("") ||
+                edtEmail.getText().toString().equals("") ||
+                edtNamaLengkap.getText().toString().equals("") ||
+                edtAsalSekolah.getText().toString().equals("") ||
+                edtAlamat.getText().toString().equals("")){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     void simpanFileData() {
-        String isiFile = edtUsername.getText().toString()+";"+
-                edtPassword.getText().toString()+";"+
-                edtEmail.getText().toString()+";"+
-                edtNamaLengkap.getText().toString()+";"+
-                edtAsalSekolah.getText().toString()+";"+
+        String isiFile = edtUsername.getText().toString() +";"+
+                edtPassword.getText().toString() +";"+
+                edtEmail.getText().toString() +";"+
+                edtNamaLengkap.getText().toString() +";"+
+                edtAsalSekolah.getText().toString() +";"+
                 edtAlamat.getText().toString();
-        File file = new File(getFilesDir(),
-        edtUsername.getText().toString());
+        File file = new File(getFilesDir(), edtUsername.getText().toString());
 
         FileOutputStream outputStream = null;
         try {

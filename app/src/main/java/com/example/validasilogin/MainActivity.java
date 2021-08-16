@@ -40,12 +40,12 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Halaman Depan");
 
 
-        edtUsername = findViewById(R.id.editUsername);
+        edtUsername = findViewById(R.id.Username);
         edtPassword = findViewById(R.id.editPassword);
         edtEmail =findViewById(R.id.editEmail);
         edtNamaLengkap = findViewById(R.id.editNamaLengkap);
         edtAsalSekolah = findViewById(R.id.editAsalSekolah);
-        bnSimpan = findViewById(R.id.btnSimpan);
+
 
         bnSimpan.setVisibility(View.GONE);
         edtUsername.setEnabled(false);
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
     void bacaDataUser(String fileName) {
         File sdcard = getFilesDir();
-        File file = new File(sdcard, String.valueOf(fileName));
+        File file = new File(sdcard, fileName);
         if (file.exists()){
             StringBuilder text = new StringBuilder();
             try {

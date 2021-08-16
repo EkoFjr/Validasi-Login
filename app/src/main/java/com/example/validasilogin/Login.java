@@ -29,13 +29,13 @@ public class Login extends AppCompatActivity {
 
         edtUsername = findViewById(R.id.editUsername);
         edtPassword = findViewById(R.id.editPassword);
-        bnLogin = findViewById(R.id.action_login);
+        bnLogin = findViewById(R.id.alogin);
         bnRegister = findViewById(R.id.action_Register);
 
         bnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login();
+                loginn();
             }
         });
 
@@ -48,9 +48,8 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    void  simpanFileLogin(){
-        String isiFile = edtUsername.getText().toString()
-                +";"+ edtPassword.getText().toString();
+    void  simpanFileLogin() {
+        String isiFile = edtUsername.getText().toString() +";"+ edtPassword.getText().toString();
         File file = new File(getFilesDir(),FILENAME);
 
         FileOutputStream outputStream = null;
@@ -67,9 +66,9 @@ public class Login extends AppCompatActivity {
         onBackPressed();
     }
 
-    void login() {
+    void loginn() {
         File sdcard = getFilesDir();
-        File file = new File(sdcard,edtUsername.getText().toString());
+        File file = new File(sdcard, edtUsername.getText().toString());
         if (file.exists()){
             StringBuilder text = new StringBuilder();
             try {
@@ -86,7 +85,7 @@ public class Login extends AppCompatActivity {
             String data = text.toString();
             String[] dataUser = data.split(";");
 
-            if (dataUser[1].equals(edtPassword.getText().toString())){
+            if (dataUser[1].equals( edtPassword.getText().toString())){
 
                 simpanFileLogin();
                 Intent intent = new Intent(this,MainActivity.class);
