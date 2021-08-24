@@ -34,70 +34,68 @@ public class Login extends AppCompatActivity {
 
         bnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                loginn();
+            public void onClick(View v) {
+                login();
             }
         });
-
         bnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Login.this,RegisterActivity.class);
+            public void onClick(View v) {
+                Intent intent = new Intent(Login.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
     }
 
-    void  simpanFileLogin() {
-        String isiFile = edtUsername.getText().toString() +";"+ edtPassword.getText().toString();
-        File file = new File(getFilesDir(),FILENAME);
+    void simpanFileLogin() {
+        String isiFile = edtUsername.getText().toString() + ";" + edtPassword.getText().toString();
+        File file = new File(getFilesDir(), FILENAME);
 
         FileOutputStream outputStream = null;
         try {
             file.createNewFile();
-            outputStream= new FileOutputStream(file,false);
+            outputStream = new FileOutputStream(file, false);
             outputStream.write(isiFile.getBytes());
             outputStream.flush();
             outputStream.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         Toast.makeText(this, "Login Berhasil", Toast.LENGTH_SHORT).show();
         onBackPressed();
     }
 
-    void loginn() {
+    void login() {
         File sdcard = getFilesDir();
         File file = new File(sdcard, edtUsername.getText().toString());
-        if (file.exists()){
+        if (file.exists()) {
             StringBuilder text = new StringBuilder();
             try {
                 BufferedReader br = new BufferedReader(new FileReader(file));
                 String line = br.readLine();
-                while (line!=null){
+                while (line != null) {
                     text.append(line);
                     line = br.readLine();
                 }
                 br.close();
-            }catch (IOException e){
-                System.out.println("Error" + e.getMessage());
+            } catch (IOException e) {
+                System.out.println("Error " + e.getMessage());
             }
             String data = text.toString();
             String[] dataUser = data.split(";");
 
-            if (dataUser[1].equals( edtPassword.getText().toString())){
-
+            if (dataUser[1].equals(edtPassword.getText().toString())) {
                 simpanFileLogin();
-                Intent intent = new Intent(this,MainActivity.class);
+                Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 finish();
-            }else {
+            } else {
                 Toast.makeText(this, "Password Tidak Sesuai", Toast.LENGTH_SHORT).show();
             }
-        }else {
+        } else {
             Toast.makeText(this, "User Tidak Ditemukan", Toast.LENGTH_SHORT).show();
         }
     }
-
-
 }
+
+

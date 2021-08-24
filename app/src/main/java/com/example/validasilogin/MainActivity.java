@@ -1,10 +1,10 @@
 package com.example.validasilogin;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -23,10 +24,12 @@ import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
-    EditText edtUsername,edtPassword,edtEmail,edtNamaLengkap,edtAsalSekolah,edtAlamat;
-    Button bnSimpan;
+    EditText edtUsername, edtPassword, edtEmail, edtNamaLengkap, edtAsalSekolah, edtAlamatTinggal;
+    Button btnSimpan;
+    TextView textViewPassword;
 
-    public static final String FILENAME="login";
+    public static final String FILENAME = "login";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,92 +38,93 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         getSupportActionBar().setTitle("Halaman Depan");
 
-
         edtUsername = findViewById(R.id.Username);
+        textViewPassword = findViewById(R.id.editPassword);
         edtPassword = findViewById(R.id.editPassword);
-        edtEmail =findViewById(R.id.editEmail);
+        edtEmail = findViewById(R.id.editEmail);
         edtNamaLengkap = findViewById(R.id.editNamaLengkap);
         edtAsalSekolah = findViewById(R.id.editAsalSekolah);
+        edtAlamatTinggal = findViewById(R.id.editAlamat);
 
 
-        bnSimpan.setVisibility(View.GONE);
         edtUsername.setEnabled(false);
         edtPassword.setVisibility(View.GONE);
+        textViewPassword.setVisibility(View.GONE);
         edtEmail.setEnabled(false);
         edtNamaLengkap.setEnabled(false);
         edtAsalSekolah.setEnabled(false);
-        edtAlamat.setEnabled(false);
-        
+        edtAlamatTinggal.setEnabled(false);
+
         bacaFileLogin();
-        
     }
 
     void bacaFileLogin() {
         File sdcard = getFilesDir();
         File file = new File(sdcard, FILENAME);
-        if (file.exists()){
-            StringBuilder text =new StringBuilder();
+        if (file.exists()) {
+            StringBuilder text = new StringBuilder();
             try {
-                BufferedReader br = new BufferedReader(new FileReader(file));
+                BufferedReader br =
+                        new BufferedReader(new FileReader(file));
                 String line = br.readLine();
-                while (line!=null){
+                while (line != null) {
                     text.append(line);
-                    line=br.readLine();
+                    line = br.readLine();
                 }
                 br.close();
-            }catch (IOException e){
-                System.out.println("Error" +e.getMessage());
+            } catch (IOException e) {
+                System.out.println("Error " + e.getMessage());
             }
             String data = text.toString();
             String[] dataUser = data.split(";");
             bacaDataUser(dataUser[0]);
-        }
 
+        }
     }
 
     void bacaDataUser(String fileName) {
         File sdcard = getFilesDir();
         File file = new File(sdcard, fileName);
-        if (file.exists()){
+        if (file.exists()) {
             StringBuilder text = new StringBuilder();
             try {
-                BufferedReader br = new BufferedReader(new FileReader(file));
+                BufferedReader br =
+                        new BufferedReader(new FileReader(file));
                 String line = br.readLine();
-                while (line!=null){
-                   text.append(line);
-                   line = br.readLine();
+                while (line != null) {
+                    text.append(line);
+                    line = br.readLine();
                 }
-            br.close();
+                br.close();
             } catch (IOException e) {
-                System.out.println("Error"+ e.getMessage());
+                System.out.println("Error " + e.getMessage());
             }
             String data = text.toString();
-            String[] dataUser = data.split(";");
+            String[] datauser = data.split(";");
 
-            edtUsername.setText(dataUser[0]);
-            edtEmail.setText(dataUser[2]);
-            edtNamaLengkap.setText(dataUser[3]);
-            edtAsalSekolah.setText(dataUser[4]);
-            edtAlamat.setText(dataUser[5]);
-        }else {
+            edtUsername.setText(datauser[0]);
+            edtEmail.setText(datauser[2]);
+            edtNamaLengkap.setText(datauser[3]);
+            edtAsalSekolah.setText(datauser[4]);
+            edtAlamatTinggal.setText(datauser[5]);
+
+        } else {
             Toast.makeText(this, "User Tidak Ditemukan", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu,menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.home1:
                 tampilkanDialogKonfirmasiLogout();
                 break;
@@ -128,9 +132,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    void hapusFile(){
-        File file = new File(getFilesDir(),FILENAME);
-        if (file.exists()){
+    void hapusFile() {
+        File file = new File(getFilesDir(), FILENAME);
+        if (file.exists()) {
             file.delete();
         }
     }
@@ -138,17 +142,17 @@ public class MainActivity extends AppCompatActivity {
     void tampilkanDialogKonfirmasiLogout() {
         new AlertDialog.Builder(this)
                 .setTitle("Logout")
-                .setMessage("Apakah Anda yakin ingin Logout ?")
+                .setMessage("Apakah Anda Yakin Ingin Logout?")
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int whic) {
+                    public void onClick(DialogInterface dialog, int whichbutton) {
                         hapusFile();
-                        Intent intent = new Intent(MainActivity.this,Login.class);
+                        Intent intent = new Intent(MainActivity.this, Login.class);
                         startActivity(intent);
                         finish();
                     }
-                }).setNegativeButton(android.R.string.no,null).show();
+                })
+                .setNegativeButton(android.R.string.no, null).show();
     }
 
 }
